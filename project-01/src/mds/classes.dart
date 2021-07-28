@@ -4,9 +4,9 @@ import 'mixins.dart';
 abstract class Vehicle {
   // ----- Attributes ----------------------------------------------------------
 
-  late double _mileage; // distance traveled in kilometers
-  late double _fuel_tank; // fuel tank in liters
-  late bool _turned_on; // vehicle turned on status
+  double _mileage; // distance traveled in kilometers
+  double _fuel_tank; // fuel tank in liters
+  bool _turned_on; // vehicle turned on status
 
   // ----- Constructors --------------------------------------------------------
 
@@ -64,25 +64,48 @@ abstract class Vehicle {
   /// It calculates the new action costs
   /// It means that the vehicle will run for [kilometers]
   void calculateNewAction(double kilometers) {
-    var required_liters = getRequiredLitersOnTravel(kilometers);
+    if (turned_on) {
+      var required_liters = getRequiredLitersOnTravel(kilometers);
 
-    if (hasEnoughFuel(required_liters)) {
-      setMileage = mileage + kilometers;
+      if (hasEnoughFuel(required_liters)) {
+        setMileage = mileage + kilometers;
+        setFuelTank = fuel_tank - required_liters;
+      }
+    } else {
+      print('Vehicle is not turned on!');
     }
   }
+}
 
+class Aircraft extends Vehicle with GoForward {
   @override
   String toString() {
-    return 'Vehicle ['
-      'mileage=$mileage, '
-      'fuel_tank=$fuel_tank, '
-      'turned_on=$turned_on'
+    return 'Aircraft ['
+      'mileage = $mileage, '
+      'fuel_tank = $fuel_tank, '
+      'turned_on = $turned_on'
     ']';
   }
 }
 
-class Aircraft extends Vehicle with GoForward {}
+class Plane extends Aircraft with ShowSmoke {
+  @override
+  String toString() {
+    return 'Plane ['
+      'mileage = $mileage, '
+      'fuel_tank = $fuel_tank, '
+      'turned_on = $turned_on'
+    ']';
+  }
+}
 
-class Plane extends Aircraft {}
-
-class Blimp extends Aircraft with ShowSmoke {}
+class Blimp extends Aircraft {
+  @override
+  String toString() {
+    return 'Blimp ['
+      'mileage = $mileage, '
+      'fuel_tank = $fuel_tank, '
+      'turned_on = $turned_on'
+    ']';
+  }
+}

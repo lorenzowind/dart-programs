@@ -35,7 +35,7 @@ class Person {
   String toString() {
     return 'Person ['
       'name = $name, '
-      'genre = $genre, '
+      'genre = $genre , '
       'age = $age, '
       'salary = $salary'
     ']';
