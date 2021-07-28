@@ -1,0 +1,4 @@
+enum Genre {
+  M,
+  F,
+}
